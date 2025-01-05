@@ -5,11 +5,11 @@ const app = express();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
 
-// (update during deployment)
+// Enable CORS
 app.use(
-  cors(
-    (origin = ["http://localhost:5500"]) // Replace with frontend domain in production
-  )
+  cors({
+    origin: ["http://localhost:5500"], // Replace with frontend domain in production
+  })
 );
 
 // Serve static files from React app (Vite or create-react-app)
@@ -42,17 +42,77 @@ app.get("*", (req, res) => {
 // Start server
 async function start() {
   try {
+    console.log("Attempting to connect to the database...");
     const result = await dbConnection.execute("SELECT 'test'");
+    console.log("Database connection test result:", result);
+
     app.listen(port, () => {
       console.log("Database connection established");
       console.log(`Server is running on http://localhost:${port}`);
     });
   } catch (error) {
     console.error("Error starting the server:", error.message);
+    process.exit(1); // Exit the process to prevent repeated attempts
   }
 }
 
 start();
+
+// const path = require("path");
+// require("dotenv").config();
+// const express = require("express");
+// const app = express();
+// const port = process.env.PORT || 5000;
+// const cors = require("cors");
+
+// // (update during deployment)
+// app.use(
+//   cors(
+//     (origin = ["http://localhost:5500"]) // Replace with frontend domain in production
+//   )
+// );
+
+// // Serve static files from React app (Vite or create-react-app)
+// app.use(express.static(path.join(__dirname, "build"))); // Update to "dist" if using Vite
+
+// // Middleware for JSON parsing
+// app.use(express.json());
+
+// // Database connection
+// const dbConnection = require("./db/dbConfig");
+
+// // Authentication middleware
+// const authMiddleware = require("./middleware/authMiddleware");
+
+// // Routers
+// const userRouter = require("./routes/userRoute");
+// const questionRoute = require("./routes/questionRoute");
+// const answerRoute = require("./routes/answerRoute");
+
+// // API routes
+// app.use("/api/users", userRouter);
+// app.use("/api/questions", authMiddleware, questionRoute);
+// app.use("/api", authMiddleware, answerRoute);
+
+// // Serve React app for unmatched routes (catch-all route)
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "dist", "index.html")); // Adjust path if necessary
+// });
+
+// // Start server
+// async function start() {
+//   try {
+//     const result = await dbConnection.execute("SELECT 'test'");
+//     app.listen(port, () => {
+//       console.log("Database connection established");
+//       console.log(`Server is running on http://localhost:${port}`);
+//     });
+//   } catch (error) {
+//     console.error("Error starting the server:", error.message);
+//   }
+// }
+
+// start();
 
 // require("dotenv").config();
 // const express = require("express");
