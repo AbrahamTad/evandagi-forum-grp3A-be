@@ -8,12 +8,12 @@ const cors = require("cors");
 // Enable CORS
 app.use(
   cors({
-    origin: ["http://localhost:5500"], // Replace with frontend domain in production
+    origin: ["http://localhost:5500"], // Replace with frontend domain in production or Add Render URL for production
   })
 );
 
 // Serve static files from React app (Vite or create-react-app)
-app.use(express.static(path.join(__dirname, "build"))); // Update to "dist" if using Vite
+app.use(express.static(path.join(__dirname, "dist")));
 
 // Middleware for JSON parsing
 app.use(express.json());
