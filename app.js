@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
 
-// Allow CORS for frontend origin (update during deployment)
+// (update during deployment)
 app.use(
   cors(
     (origin = ["http://localhost:5500"]) // Replace with frontend domain in production
