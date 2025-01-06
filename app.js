@@ -36,7 +36,7 @@ app.use("/api", authMiddleware, answerRoute);
 
 // Serve React app for unmatched routes (catch-all route)
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "dist", "index.html")); // Adjust path if necessary
+  res.sendFile(path.resolve(__dirname, "dist", "index.html"));
 });
 
 // Start server
