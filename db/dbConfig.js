@@ -1,15 +1,12 @@
 const mysql2 = require("mysql2");
-
-console.log("DB_USER:", process.env.DB_USER);
-console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
-console.log("DB_DATABASE:", process.env.DB_DATABASE);
-console.log("DB_HOST:", process.env.DB_HOST || "localhost");
+require("dotenv").config();
 
 const dbConnection = mysql2.createPool({
+  host: process.env.DB_HOST,
   user: process.env.DB_USER,
   database: process.env.DB_DATABASE,
-  host: process.env.DB_HOST || "localhost",
   password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT || 3306,
   connectionLimit: 10,
 });
 
